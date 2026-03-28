@@ -2,15 +2,14 @@
   "name": "channel-codex-browser-host",
   "version": "0.1.0",
   "private": true,
-  "description": "Native messaging host for the Channel Codex Browser extension.",
-  "main": "host.js",
+  "description": "Standalone browser controller for shared Codex and manual automation.",
+  "main": "browser-controller.js",
   "type": "commonjs",
   "scripts": {
-    "start": "node host.js",
-    "check": "node --check host.js && node --check browser-controller.js"
+    "start": "node browser-controller.js status",
+    "check": "node --check browser-controller.js"
   },
   "dependencies": {
-    "native-messaging": "^1.0.0",
     "playwright": "^1.58.2"
   }
 }

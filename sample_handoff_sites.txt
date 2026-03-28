@@ -6,6 +6,10 @@ Use these sites to test the shared control model where:
 - Codex does an automated step
 - you take over again if needed
 
+Current model
+- Codex uses the standalone controller directly
+- No Chrome extension is required
+
 Sample 1 - Google Search
 URL
 - https://www.google.com

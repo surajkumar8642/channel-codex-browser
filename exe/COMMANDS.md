@@ -1,8 +1,8 @@
 Direct Codex Control
 
 Purpose
-- The extension is only for the human launch step.
-- After that, Codex should call `browser-controller.js` directly.
+- Codex calls `browser-controller.js` directly.
+- No Chrome extension is required.
 
 Launch browser
 ```powershell

@@ -1,104 +1,49 @@
 Channel Codex Browser - Manual Steps
 
 Condition
-- On the other PC, Codex is already installed and running
+- Codex is already installed and running on this PC
 
-Part 1 - Only done by you
+What changed
+- This project no longer needs the Chrome extension
+- This project no longer needs the native messaging host
+- Browser control now happens directly through `exe/browser-controller.js`
 
-These are the steps that only the human operator should do.
+What only you do
 
-Setup on a new computer
 1. Open PowerShell in:
    `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe`
 2. Run:
    `npm install`
 3. Run:
    `npx playwright install chromium`
-4. Open Google Chrome
-5. Go to:
-   `chrome://extensions`
-6. Turn on `Developer mode`
-7. Click `Load unpacked`
-8. Select:
-   `C:\Work\lerarn\VideoCreate\channel-codex-browser\extension`
-9. Copy the extension ID shown by Chrome
-10. In PowerShell run:
-    `powershell -ExecutionPolicy Bypass -File .\install-host.ps1 <extension-id>`
-11. Back in Chrome, click `Reload` on the extension
+4. If Codex asks for a browser launch, allow it or run:
+   `node .\browser-controller.js launchBrowser`
 
-Start the project
-1. Open the extension popup
-2. Check that it shows:
-   - `connected: true`
-3. If browser is not running, click:
-   - `Open Controlled Browser`
-4. After that one step, Codex can control the browser directly through the local controller
-
-Manual-only actions
+Manual-only tasks
 - log in to websites
 - solve CAPTCHA
 - enter OTP
-- approve security prompts
-- accept consent screens
-- handle bot checks
-- do any sensitive step you want to keep manual
+- accept consent prompts
+- approve sensitive actions
+- do any step you want to keep manual
 
-If something stops
-- If browser was closed:
-  open the popup and click `Launch controlled browser`
-- If host is disconnected:
-  click `Reconnect host`
+How to work with Codex
 
-What to tell Codex
-- what URL to open
-- what you already completed manually
-- what Codex should do next
-- exact popup error text if something fails
+1. Codex opens the target URL
+2. You do the human-only step if needed
+3. Tell Codex to continue
+4. Codex continues in the same browser session
 
-Part 2 - Done by Codex
-
-These are the actions Codex can do after your manual setup is complete.
-
-Codex-controlled actions
-- run:
-  `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\browser-controller.js`
-- read state from:
-  `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\controller-state.json`
-- read last result from:
-  `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\controller-last-result.json`
-- open URL
-- wait for selector
-- type text
-- click element
-- press key
-- extract selector text
-- extract page text
-- extract links
-- scroll page
-
-Codex workflow model
-1. You do blocked manual steps first
-2. You tell Codex to continue
-3. Codex runs one or more browser actions
-4. If another human step is needed, you take over again
-5. Then you tell Codex to continue again
-
-Popup buttons kept for the human operator
-- `Launch controlled browser`
-- `Reconnect host`
-
-Important note
-- After you click `Launch controlled browser`, Codex does not need you to keep clicking the popup for each action
-- The popup is only needed for starting the browser again
+Useful one-letter replies
+- `r` = browser ready
+- `d` = manual step done
 
 Useful files
-- Command guide:
+- Controller guide:
   `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\COMMANDS.md`
-- Sample sites:
-  `C:\Work\lerarn\VideoCreate\channel-codex-browser\sample_handoff_sites.txt`
-- Test plan:
-  `C:\Work\lerarn\VideoCreate\channel-codex-browser\test_plan.txt`
-- Host log:
-  `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\host.log`
+- Controller code:
+  `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\browser-controller.js`
+- Last controller result:
+  `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\controller-last-result.json`
 - Controller state:
   `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\controller-state.json`

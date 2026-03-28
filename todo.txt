@@ -1,68 +1,36 @@
-Channel Codex Browser - Codex TODO
+Channel Codex Browser - TODO
 
-Purpose
-This file is for Codex automation work only.
-Human operator actions are listed in `to_do_manual.txt`.
+Current architecture
+- [x] Remove Chrome extension dependency
+- [x] Remove native messaging host dependency
+- [x] Use standalone browser controller with Chrome remote debugging
+- [x] Reuse one controlled browser session across manual and Codex steps
 
-Current project state
-- [x] Create Chrome extension bridge
-- [x] Create Windows native messaging host
-- [x] Register native host through installer
-- [x] Connect extension to local host
-- [x] Launch Playwright-controlled browser
-- [x] Add direct Codex command folder for host control
-- [x] Add result and status files for command execution
-- [x] Read page title, URL, and text preview
-- [x] Add command buttons in popup
-- [x] Add selector-based actions
-
-Commands currently working
+Working commands
 - [x] `launchBrowser`
+- [x] `status`
 - [x] `openUrl`
 - [x] `getPageText`
-- [x] `clickElement`
 - [x] `typeText`
+- [x] `clickElement`
 - [x] `pressKey`
+- [x] `rawType`
 - [x] `waitFor`
 - [x] `extractText`
 - [x] `extractLinks`
 - [x] `scrollPage`
+- [x] `submitForm`
 
-Direct control files
-- [x] `exe/commands`
-- [x] `exe/results`
-- [x] `exe/host-status.json`
-- [x] `exe/results/last-result.json`
-- [x] `exe/COMMANDS.md`
+Shared-control workflow
+- [x] Codex opens pages directly
+- [x] Human can do login / CAPTCHA / OTP / approval steps
+- [x] Codex can continue on the same browser after manual steps
 
-Codex next work
-- [ ] Add pause state for human handoff
-- [ ] Add continue state after human handoff
-- [ ] Add command history in popup
-- [ ] Add reusable workflow runner
-- [ ] Add saved step sequences for repeated tasks
-- [ ] Add screenshot capture
-- [ ] Add selector helper or picker
-- [ ] Add page snapshot export
-- [ ] Add better browser closed detection
-- [ ] Add restart browser command
-- [ ] Add multi-tab support
-
-Workflow support to add
-- [ ] Google Search Console helper flow
-- [ ] URL inspection helper flow
-- [ ] Reindex request helper flow
-- [ ] Removals tool helper flow
-- [ ] Generic login-wait-continue flow
-
-Reliability tasks
-- [ ] Improve wait logic for dynamic pages
-- [ ] Add retry for transient selector failures
-- [ ] Add clearer error messages in popup
-- [ ] Add structured success and failure logs
-- [ ] Add command timeout controls
-
-Files Codex should maintain
-- [ ] Keep `to_do_manual.txt` updated for human operator steps
-- [ ] Keep `sample_handoff_sites.txt` updated with safe test targets
-- [ ] Keep `test_plan.txt` updated with working sample flows
+Next improvements
+- [ ] Reuse a single active tab more strictly
+- [ ] Reduce navigation flicker
+- [ ] Add retry after navigation changes
+- [ ] Add workflow runner for saved step sequences
+- [ ] Add Search Console removal workflow
+- [ ] Add Search Console reindex workflow
+- [ ] Add screenshots and page snapshot export

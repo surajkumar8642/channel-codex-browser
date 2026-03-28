@@ -199,6 +199,13 @@ async function fillUsingFallbacks(page, payload, timeout) {
     return { strategy: "placeholder", value: payload.placeholder };
   }
 
+  if (payload.firstTextbox) {
+    const locator = page.getByRole("textbox").first();
+    await locator.waitFor({ state: "visible", timeout });
+    await locator.fill(value);
+    return { strategy: "firstTextbox", value: "textbox" };
+  }
+
   throw new Error("Missing selector, label, or placeholder for typeText.");
 }
 
@@ -238,6 +245,9 @@ async function runCommand(command, payload = {}) {
       };
     } else if (command === "pressKey") {
       await page.keyboard.press(payload.key || "Enter");
+      result = await getPageSnapshot(page);
+    } else if (command === "rawType") {
+      await page.keyboard.type(payload.text || "", { delay: Number(payload.delayMs || 40) });
       result = await getPageSnapshot(page);
     } else if (command === "waitFor") {
       if (payload.selector) {
