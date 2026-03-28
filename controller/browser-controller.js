@@ -4,11 +4,27 @@ const { spawn } = require("node:child_process");
 const { chromium } = require("playwright");
 
 const ROOT_DIR = __dirname;
-const CHROME_EXE = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+const DEFAULT_CHROME_EXE = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 const DEBUG_PORT = 9222;
 const PROFILE_DIR = path.join(ROOT_DIR, ".controller-profile");
 const STATE_PATH = path.join(ROOT_DIR, "controller-state.json");
 const RESULT_PATH = path.join(ROOT_DIR, "controller-last-result.json");
+const SUPPORTED_COMMANDS = [
+  "launchBrowser",
+  "status",
+  "openUrl",
+  "getPageText",
+  "typeText",
+  "clickElement",
+  "pressKey",
+  "rawType",
+  "waitFor",
+  "extractText",
+  "extractLinks",
+  "scrollPage",
+  "submitForm",
+  "help"
+];
 
 function writeJson(filePath, value) {
   fs.writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
@@ -24,6 +40,43 @@ function readState() {
   } catch (_error) {
     return null;
   }
+}
+
+function getChromeExecutable() {
+  const configuredPath = process.env.CHANNEL_CODEX_BROWSER_PATH || DEFAULT_CHROME_EXE;
+  if (!fs.existsSync(configuredPath)) {
+    throw new Error(
+      `Chrome executable not found at "${configuredPath}". Set CHANNEL_CODEX_BROWSER_PATH to your browser path.`
+    );
+  }
+  return configuredPath;
+}
+
+function normalizeUrl(value) {
+  const input = String(value || "").trim();
+  if (!input) {
+    return "https://www.google.com";
+  }
+
+  const withProtocol = /^[a-z]+:\/\//i.test(input) ? input : `https://${input}`;
+
+  try {
+    return new URL(withProtocol).toString();
+  } catch (_error) {
+    throw new Error(`Invalid URL: ${value}`);
+  }
+}
+
+function getHelpResult() {
+  return {
+    commands: SUPPORTED_COMMANDS,
+    browserPathEnv: "CHANNEL_CODEX_BROWSER_PATH",
+    examples: {
+      launchBrowser: "node .\\browser-controller.js launchBrowser",
+      openUrl: "$env:CONTROLLER_PAYLOAD='{\"url\":\"https://www.google.com\"}'; node .\\browser-controller.js openUrl",
+      typeText: "$env:CONTROLLER_PAYLOAD='{\"selector\":\"textarea[name=''q'']\",\"text\":\"suraj kumar\"}'; node .\\browser-controller.js typeText"
+    }
+  };
 }
 
 async function isControllerReachable() {
@@ -62,8 +115,9 @@ async function launchBrowser() {
     return state;
   }
 
+  const chromeExecutable = getChromeExecutable();
   const child = spawn(
-    CHROME_EXE,
+    chromeExecutable,
     [
       `--remote-debugging-port=${DEBUG_PORT}`,
       `--user-data-dir=${PROFILE_DIR}`,
@@ -84,12 +138,13 @@ async function launchBrowser() {
   }
 
   const state = {
-    browserRunning: true,
-    connected: true,
-    port: DEBUG_PORT,
-    pid: child.pid,
-    profileDir: PROFILE_DIR,
-    updatedAt: new Date().toISOString()
+      browserRunning: true,
+      connected: true,
+      port: DEBUG_PORT,
+      browserPath: chromeExecutable,
+      pid: child.pid,
+      profileDir: PROFILE_DIR,
+      updatedAt: new Date().toISOString()
   };
   writeJson(STATE_PATH, state);
   return state;
@@ -218,6 +273,12 @@ async function runCommand(command, payload = {}) {
     return state;
   }
 
+  if (command === "help") {
+    const result = getHelpResult();
+    writeJson(RESULT_PATH, result);
+    return result;
+  }
+
   const reachable = await isControllerReachable();
   if (!reachable) {
     throw new Error("Controlled browser is not running. Launch it first.");
@@ -229,7 +290,7 @@ async function runCommand(command, payload = {}) {
     let result;
 
     if (command === "openUrl") {
-      await page.goto(payload.url || "https://www.google.com", { waitUntil: "domcontentloaded" });
+      await page.goto(normalizeUrl(payload.url), { waitUntil: "domcontentloaded" });
       result = await getPageSnapshot(page);
     } else if (command === "getPageText") {
       result = await getPageSnapshot(page);
@@ -322,6 +383,10 @@ async function main() {
     writeJson(STATE_PATH, state);
     process.stdout.write(`${JSON.stringify(state, null, 2)}\n`);
     return;
+  }
+
+  if (!SUPPORTED_COMMANDS.includes(command)) {
+    throw new Error(`Unsupported command: ${command}. Use "help" to list available commands.`);
   }
 
   let payload = {};

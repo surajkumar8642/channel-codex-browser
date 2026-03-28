@@ -30,6 +30,12 @@ Launch the controlled browser:
 node .\browser-controller.js launchBrowser
 ```
 
+List available commands:
+
+```powershell
+node .\browser-controller.js help
+```
+
 Check status:
 
 ```powershell
@@ -42,6 +48,13 @@ Open a URL:
 
 ```powershell
 $env:CONTROLLER_PAYLOAD='{"url":"https://www.google.com"}'
+node .\browser-controller.js openUrl
+```
+
+You can also pass a plain domain and the controller will normalize it:
+
+```powershell
+$env:CONTROLLER_PAYLOAD='{"url":"google.com"}'
 node .\browser-controller.js openUrl
 ```
 
@@ -71,6 +84,11 @@ node .\browser-controller.js getPageText
 2. Human performs login, CAPTCHA, OTP, consent, or approval if needed.
 3. Human replies `d` or another agreed signal.
 4. Codex continues on the same browser session.
+
+## Notes
+
+- Set `CHANNEL_CODEX_BROWSER_PATH` if Chrome is installed outside the default Windows path.
+- Invalid URLs now fail with a clear controller error instead of a browser navigation error.
 
 ## Files
 
