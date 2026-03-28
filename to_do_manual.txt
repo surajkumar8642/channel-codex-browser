@@ -1,0 +1,104 @@
+Channel Codex Browser - Manual Steps
+
+Condition
+- On the other PC, Codex is already installed and running
+
+Part 1 - Only done by you
+
+These are the steps that only the human operator should do.
+
+Setup on a new computer
+1. Open PowerShell in:
+   `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe`
+2. Run:
+   `npm install`
+3. Run:
+   `npx playwright install chromium`
+4. Open Google Chrome
+5. Go to:
+   `chrome://extensions`
+6. Turn on `Developer mode`
+7. Click `Load unpacked`
+8. Select:
+   `C:\Work\lerarn\VideoCreate\channel-codex-browser\extension`
+9. Copy the extension ID shown by Chrome
+10. In PowerShell run:
+    `powershell -ExecutionPolicy Bypass -File .\install-host.ps1 <extension-id>`
+11. Back in Chrome, click `Reload` on the extension
+
+Start the project
+1. Open the extension popup
+2. Check that it shows:
+   - `connected: true`
+3. If browser is not running, click:
+   - `Open Controlled Browser`
+4. After that one step, Codex can control the browser directly through the local controller
+
+Manual-only actions
+- log in to websites
+- solve CAPTCHA
+- enter OTP
+- approve security prompts
+- accept consent screens
+- handle bot checks
+- do any sensitive step you want to keep manual
+
+If something stops
+- If browser was closed:
+  open the popup and click `Launch controlled browser`
+- If host is disconnected:
+  click `Reconnect host`
+
+What to tell Codex
+- what URL to open
+- what you already completed manually
+- what Codex should do next
+- exact popup error text if something fails
+
+Part 2 - Done by Codex
+
+These are the actions Codex can do after your manual setup is complete.
+
+Codex-controlled actions
+- run:
+  `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\browser-controller.js`
+- read state from:
+  `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\controller-state.json`
+- read last result from:
+  `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\controller-last-result.json`
+- open URL
+- wait for selector
+- type text
+- click element
+- press key
+- extract selector text
+- extract page text
+- extract links
+- scroll page
+
+Codex workflow model
+1. You do blocked manual steps first
+2. You tell Codex to continue
+3. Codex runs one or more browser actions
+4. If another human step is needed, you take over again
+5. Then you tell Codex to continue again
+
+Popup buttons kept for the human operator
+- `Launch controlled browser`
+- `Reconnect host`
+
+Important note
+- After you click `Launch controlled browser`, Codex does not need you to keep clicking the popup for each action
+- The popup is only needed for starting the browser again
+
+Useful files
+- Command guide:
+  `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\COMMANDS.md`
+- Sample sites:
+  `C:\Work\lerarn\VideoCreate\channel-codex-browser\sample_handoff_sites.txt`
+- Test plan:
+  `C:\Work\lerarn\VideoCreate\channel-codex-browser\test_plan.txt`
+- Host log:
+  `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\host.log`
+- Controller state:
+  `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\controller-state.json`

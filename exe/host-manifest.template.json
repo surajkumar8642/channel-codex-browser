@@ -1,0 +1,9 @@
+{
+  "name": "com.channel_codex.browser_host",
+  "description": "Native messaging host for Channel Codex Browser",
+  "path": "C:\\\\Work\\\\lerarn\\\\VideoCreate\\\\channel-codex-browser\\\\exe\\\\host.cmd",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://REPLACE_WITH_EXTENSION_ID/"
+  ]
+}

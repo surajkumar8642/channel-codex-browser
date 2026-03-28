@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Channel Codex Browser</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        margin: 0;
+        padding: 16px;
+        width: 320px;
+        background: #0f172a;
+        color: #e2e8f0;
+      }
+
+      h1 {
+        font-size: 16px;
+        margin: 0 0 12px;
+      }
+
+      .status {
+        padding: 12px;
+        border-radius: 10px;
+        background: #1e293b;
+        margin-bottom: 12px;
+      }
+
+      .label {
+        color: #94a3b8;
+        display: block;
+        font-size: 12px;
+        margin-bottom: 4px;
+      }
+
+      pre {
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-size: 12px;
+        margin: 0;
+      }
+
+      button {
+        width: 100%;
+        border: 0;
+        border-radius: 8px;
+        padding: 10px 12px;
+        background: #22c55e;
+        color: #052e16;
+        font-weight: 600;
+        cursor: pointer;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Channel Codex Browser</h1>
+    <div class="status">
+      <span class="label">Status</span>
+      <pre id="status">Loading...</pre>
+    </div>
+    <button id="launch" type="button">Open Controlled Browser</button>
+    <script src="popup.js"></script>
+  </body>
+  </html>

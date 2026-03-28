@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Channel Codex Browser",
+  "version": "0.1.0",
+  "description": "Bridge commands between Chrome and a local Codex host.",
+  "permissions": [
+    "nativeMessaging",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Channel Codex Browser",
+    "default_popup": "popup.html"
+  }
+}

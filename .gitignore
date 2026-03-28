@@ -1,0 +1,10 @@
+exe/node_modules/
+exe/.playwright-profile/
+exe/.controller-profile/
+exe/commands/
+exe/results/
+exe/controller-state.json
+exe/controller-last-result.json
+exe/host-status.json
+exe/host.log
+tmp-command.json

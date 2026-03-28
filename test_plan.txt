@@ -1,0 +1,36 @@
+Channel Codex Browser - Test Plan
+
+First shared-control tests
+
+Test 1
+- Open `https://www.google.com`
+- If needed, manually accept consent
+- In the popup set selector to `textarea[name='q']`
+- Set value to `suraj kumar`
+- Click `Type text`
+- Set key to `Enter`
+- Click `Press key`
+- Click `Extract links`
+
+Test 2
+- Open `https://httpbin.org/forms/post`
+- Set selector to `input[name='custname']`
+- Set value to `Suraj Kumar`
+- Click `Type text`
+- Set selector to `input[name='custemail']`
+- Set value to `suraj@example.com`
+- Click `Type text`
+- Set selector to `button[type='submit']`
+- Click `Click element`
+- Click `Read page text`
+
+Test 3
+- Open `https://github.com/login`
+- Log in manually
+- Tell Codex to continue
+- Open a repo page
+- Use `Extract links` or `Extract selector text`
+
+Expected outcome
+- Manual and automated steps can happen in the same controlled browser
+- Codex can continue after your manual step without losing state
