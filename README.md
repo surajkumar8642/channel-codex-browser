@@ -2,20 +2,24 @@
 
 Shared browser automation for Codex plus human handoff.
 
+## Structure
+
+- `controller/`
+  runtime code and npm package
+- `docs/`
+  manual, commands, tests, and project notes
+
 ## Architecture
 
-This project uses a standalone controller:
-
-- `exe/browser-controller.js`
-
+This project uses a standalone controller at `controller/browser-controller.js`.
 It launches and reconnects to a Chrome instance through remote debugging.
-The old Chrome extension and native messaging host flow are no longer required.
 
 ## Setup
 
-From [`exe`](C:\Work\lerarn\VideoCreate\channel-codex-browser\exe):
+From the `controller` folder:
 
 ```powershell
+cd .\controller
 npm install
 npx playwright install chromium
 ```
@@ -70,8 +74,8 @@ node .\browser-controller.js getPageText
 
 ## Files
 
-- [`exe/browser-controller.js`](C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\browser-controller.js)
-- [`exe/COMMANDS.md`](C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\COMMANDS.md)
-- [`to_do_manual.txt`](C:\Work\lerarn\VideoCreate\channel-codex-browser\to_do_manual.txt)
-- [`sample_handoff_sites.txt`](C:\Work\lerarn\VideoCreate\channel-codex-browser\sample_handoff_sites.txt)
-- [`test_plan.txt`](C:\Work\lerarn\VideoCreate\channel-codex-browser\test_plan.txt)
+- [`controller/browser-controller.js`](C:\Work\lerarn\VideoCreate\channel-codex-browser\controller\browser-controller.js)
+- [`docs/commands.md`](C:\Work\lerarn\VideoCreate\channel-codex-browser\docs\commands.md)
+- [`docs/manual.md`](C:\Work\lerarn\VideoCreate\channel-codex-browser\docs\manual.md)
+- [`docs/sample-handoff-sites.md`](C:\Work\lerarn\VideoCreate\channel-codex-browser\docs\sample-handoff-sites.md)
+- [`docs/test-plan.md`](C:\Work\lerarn\VideoCreate\channel-codex-browser\docs\test-plan.md)

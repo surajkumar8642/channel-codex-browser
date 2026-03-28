@@ -1,5 +1,5 @@
 {
-  "name": "channel-codex-browser-host",
+  "name": "channel-codex-browser-controller",
   "version": "0.1.0",
   "private": true,
   "description": "Standalone browser controller for shared Codex and manual automation.",

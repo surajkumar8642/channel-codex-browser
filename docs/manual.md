@@ -6,12 +6,12 @@ Condition
 What changed
 - This project no longer needs the Chrome extension
 - This project no longer needs the native messaging host
-- Browser control now happens directly through `exe/browser-controller.js`
+- Browser control now happens directly through `controller/browser-controller.js`
 
 What only you do
 
 1. Open PowerShell in:
-   `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe`
+   `C:\Work\lerarn\VideoCreate\channel-codex-browser\controller`
 2. Run:
    `npm install`
 3. Run:
@@ -40,10 +40,10 @@ Useful one-letter replies
 
 Useful files
 - Controller guide:
-  `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\COMMANDS.md`
+  `C:\Work\lerarn\VideoCreate\channel-codex-browser\docs\commands.md`
 - Controller code:
-  `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\browser-controller.js`
+  `C:\Work\lerarn\VideoCreate\channel-codex-browser\controller\browser-controller.js`
 - Last controller result:
-  `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\controller-last-result.json`
+  `C:\Work\lerarn\VideoCreate\channel-codex-browser\controller\controller-last-result.json`
 - Controller state:
-  `C:\Work\lerarn\VideoCreate\channel-codex-browser\exe\controller-state.json`
+  `C:\Work\lerarn\VideoCreate\channel-codex-browser\controller\controller-state.json`
